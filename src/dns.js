@@ -1,4 +1,5 @@
 const dns = require("dns");
+const dnsPromises = dns.promises;
 
 /**
  * Fetch the lnd-pubkey from the DNS TXT record
@@ -8,15 +9,14 @@ const dns = require("dns");
  */
 function getLndPubkey(hostname) {
   return new Promise((resolve, reject) => {
-    dns.resolve(hostname, "TXT", (err, answers) => {
-      if (err) return reject(err);
+    dnsPromises.resolve(hostname, "TXT").then(answers => {
       answers.forEach(answer => {
         if (answer[0].substr(0, 11) === "lnd-pubkey=") {
           resolve(answer[0].substr(11, 66));
         }
       });
       reject(new Error("No lnd-pubkey found"));
-    });
+    }).catch(reject)
   });
 }
 
