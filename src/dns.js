@@ -28,7 +28,7 @@ function getLndPubkey(hostname) {
 function isValidPubkey(record) {
   return (
     record[0].substr(0, 11) === "lnd-pubkey=" &&
-    /^[0-9a-f]+$/.test(record[0].substr(11, 66))
+    /^[0-9a-f]{66}$/.test(record[0].substr(11, 66)) // Must be hex-string with size 66
   );
 }
 
