@@ -1,10 +1,6 @@
 "use strict";
 
-// [run the app]
-// $ npm install electron
-// $ ./node_modules/.bin/electron .
-
-const {app, nativeImage, Tray, Menu, BrowserWindow} = require("electron");
+import { app, nativeImage, Tray, Menu, BrowserWindow } from "electron";
 
 let top = {}; // prevent gc to keep windows
 
@@ -24,8 +20,6 @@ app.once("ready", ev => {
         ev.preventDefault(); // prevent quit process
     });
 
-    // empty image as transparent icon: it can click
-    // see: https://electron.atom.io/docs/api/tray/
     top.tray = new Tray("icon.png");
     const menu = Menu.buildFromTemplate([
         {label: "Actions", submenu: [
@@ -38,7 +32,6 @@ app.once("ready", ev => {
         {role: "quit"}, // "role": system prepared action menu
     ]);
     top.tray.setToolTip("hello electrol");
-    //top.tray.setTitle("Tray Example"); // macOS only
     top.tray.setContextMenu(menu);
 
     // Option: some animated web site to tray icon image
@@ -51,9 +44,6 @@ app.once("ready", ev => {
     });
 });
 app.on("before-quit", ev => {
-    // BrowserWindow "close" event spawn after quit operation,
-    // it requires to clean up listeners for "close" event
     top.win.removeAllListeners("close");
-    // release windows
     top = null;
 });
