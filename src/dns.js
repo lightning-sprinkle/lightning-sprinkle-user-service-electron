@@ -12,12 +12,10 @@ function getLndPubkey(hostname) {
     dnsPromises
       .resolve(hostname, "TXT")
       .then(answers => {
-        for (let answer of answers) {
-          if (isValidPubkey(answer[0])) {
-            return resolve(answer[0].substr(11, 66));
-          }
-        }
-        reject(new Error("No lnd-pubkey found"));
+        let pubkey = answers.find(isValidPubkey);
+        return pubkey
+          ? resolve(pubkey[0].substr(11, 66))
+          : reject(new Error("No lnd-pubkey found"));
       })
       .catch(reject);
   });
@@ -25,13 +23,13 @@ function getLndPubkey(hostname) {
 
 /**
  * Check if TXT record is a valid lnd-pubkey
- * @param {String} record 
+ * @param {String} record
  * @return {Boolean} valid
  */
 function isValidPubkey(record) {
   return (
-    record.substr(0, 11) === "lnd-pubkey=" &&
-    /^[0-9a-f]+$/.test(record.substr(11, 66))
+    record[0].substr(0, 11) === "lnd-pubkey=" &&
+    /^[0-9a-f]+$/.test(record[0].substr(11, 66))
   );
 }
 
