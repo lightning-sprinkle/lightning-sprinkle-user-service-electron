@@ -1,5 +1,4 @@
-const dns = require("dns");
-const dnsPromises = dns.promises;
+const dnsPromises = require("dns").promises;
 
 /**
  * Fetch the lnd-pubkey from the DNS TXT record
