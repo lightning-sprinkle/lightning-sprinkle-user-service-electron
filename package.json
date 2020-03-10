@@ -1,0 +1,10 @@
+{
+  "name": "lightning-sprinkle-user-service",
+  "main": "app.js",
+  "scripts": {
+    "dev": "electron ."
+  },
+  "dependencies": {
+    "electron": "^8.1.1"
+  }
+}
