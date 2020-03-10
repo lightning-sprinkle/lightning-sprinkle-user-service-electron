@@ -10,11 +10,11 @@ const dnsPromises = dns.promises;
 function getLndPubkey(hostname) {
   return new Promise((resolve, reject) => {
     dnsPromises.resolve(hostname, "TXT").then(answers => {
-      answers.forEach(answer => {
+      for (let answer of answers) {
         if (answer[0].substr(0, 11) === "lnd-pubkey=") {
-          resolve(answer[0].substr(11, 66));
+          return resolve(answer[0].substr(11, 66));
         }
-      });
+      };
       reject(new Error("No lnd-pubkey found"));
     }).catch(reject)
   });
