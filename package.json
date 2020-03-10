@@ -1,6 +1,6 @@
 {
   "name": "lightning-sprinkle-user-service",
-  "main": "app.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "electron ."
   },

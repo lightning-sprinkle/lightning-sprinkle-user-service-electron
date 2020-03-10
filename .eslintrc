@@ -1,0 +1,40 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "spread": true
+    }
+  },
+  "globals": {
+    "__DEV__": true,
+    "fetch": true,
+    "Promise": true,
+    "window": true,
+    "document": true,
+    "navigator": true
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "es5",
+      "bracketSpacing": true,
+      "jsxBracketSameLine": false,
+      "parser": "babel"
+    }],
+    "no-console": "off"
+  }
+}
