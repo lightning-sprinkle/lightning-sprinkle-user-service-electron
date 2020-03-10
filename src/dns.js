@@ -1,12 +1,22 @@
+const dns = require('dns');
 
-class MyError extends Error {}
-
+/**
+ * Fetch the lnd-pubkey from the DNS TXT record
+ * for the given hostname
+ * @param {String} hostname 
+ */
 function getLndPubkey(hostname) {
-  if (hostname === 'example.com') {
-    throw new MyError() 
-  } else {
-    return "027d2456f6d4aaf27873b68b7717c8137aaa8043d687a2113b916a5016e9a880e9"
-  }
+  return new Promise((resolve, reject) => {
+    dns.resolve(hostname, 'TXT', (err, answers) => {
+      if (err) return reject(err)
+      answers.forEach(answer => {
+        if (answer[0].substr(0, 11) === 'lnd-pubkey=') {
+          resolve(answer[0].substr(11, 66))
+        }
+      })
+      reject(new Error('No lnd-pubkey found'))
+    });
+  })
 }
 
-module.exports = { getLndPubkey, MyError }
+module.exports = { getLndPubkey }
