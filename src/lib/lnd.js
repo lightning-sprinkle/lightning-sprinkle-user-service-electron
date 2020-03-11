@@ -5,7 +5,7 @@ fs = require('fs').promises
  * @param {String} path
  * @return {String}
  */
-function getMacaroon(path) {
+function readMacaroon(path) {
   return fs.readFile(path).then(content => content.toString('hex'))
 }
 
@@ -27,4 +27,4 @@ function sendPayment(sendRequest) {
 
 }
 
-module.exports = { getMacaroon, keysendRequest, sendPayment }
+module.exports = { readMacaroon, keysendRequest, sendPayment }

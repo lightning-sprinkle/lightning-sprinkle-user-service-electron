@@ -2,7 +2,7 @@ const test = require("ava");
 const lnd = require("./lnd")
 
 test("Open macaroon", async t => {
-  let macaroon = await lnd.getMacaroon("/home/daan/.lnd/data/chain/bitcoin/mainnet/admin.macaroon")
+  let macaroon = await lnd.readMacaroon("/home/daan/.lnd/data/chain/bitcoin/mainnet/admin.macaroon")
   t.regex(macaroon, /[0-9a-f]/);
 });
 
@@ -12,5 +12,5 @@ test("Keysend request", async t => {
   t.is(request.amt, 10);
   t.is(request.final_cltv_delta, 40);
   t.regex(request.payment_hash, /[0-9a-f]/);
-  t.not(typeof request.dest_custom_records[5482373484], "undefined")
+  t.not(request.dest_custom_records[5482373484], undefined)
 })
