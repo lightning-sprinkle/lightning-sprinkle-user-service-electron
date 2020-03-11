@@ -3,7 +3,7 @@ const sslCertificate = require("get-ssl-certificate");
 
 /**
  * Function looks up the SSL certificate for the domain, and checks if
- * it is an OV or EV certificate by reading the following CertificatePolicies
+ * it is an OV or EV certificate by reading the CertificatePolicies
  * @param {String} hostname
  * @return {Promise|Boolean}
  */
