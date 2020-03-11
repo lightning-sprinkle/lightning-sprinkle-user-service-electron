@@ -9,4 +9,22 @@ function getMacaroon(path) {
   return fs.readFile(path).then(content => content.toString('hex'))
 }
 
-module.exports = { getMacaroon }
+/**
+ * Create a new request with the keysend feature.
+ * https://github.com/lightningnetwork/lnd/pull/3795?ref=tokendaily
+ * @param {String} dest 
+ * @param {Number} amt 
+ */
+function keysendRequest(dest, amt) {
+
+}
+
+/**
+ * Actually send the payment to the lightning network
+ * @param {Object} sendRequest 
+ */
+function sendPayment(sendRequest) {
+
+}
+
+module.exports = { getMacaroon, keysendRequest, sendPayment }
