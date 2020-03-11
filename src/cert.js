@@ -18,7 +18,7 @@ function isOrganization(hostname) {
 }
 
 /**
- * Check if policy belongs to the following policies
+ * Check if CertificatePolicy belongs to the following policies
  * 2.23.140.1.2.2: Organization Validation
  * 2.23.140.1.1: Extended Validation
  * @param {Object} policy
