@@ -1,6 +1,6 @@
 const rs = require("jsrsasign");
 const sslCertificate = require("get-ssl-certificate");
-const dnsPromises = require("dns").promises;
+const dns = require("dns").promises;
 
 /**
  * Function looks up the SSL certificate for the domain, and checks if
@@ -34,16 +34,11 @@ function isOrganizationPolicy(policy) {
  * @return {Promise|String} pubkey
  */
 function getLndPubkey(hostname) {
-  return new Promise((resolve, reject) => {
-    dnsPromises
-      .resolve(hostname, "TXT")
-      .then(dnsRecords => {
-        let pubkey = dnsRecords.flat().find(isValidPubkey);
-        return pubkey
-          ? resolve(pubkey.substr(11, 66))
-          : reject(new Error("No lnd-pubkey found"));
-      })
-      .catch(reject);
+  return dns.resolve(hostname, "TXT").then(dnsRecords => {
+    let pubkeyRecord = dnsRecords.flat().find(isValidPubkey);
+    if (typeof pubkeyRecord === "undefined")
+      throw new Error("No lnd-pubkey found");
+    return pubkeyRecord.substr(11, 66);
   });
 }
 
