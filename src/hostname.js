@@ -12,9 +12,7 @@ function isOrganization(hostname) {
   return sslCertificate.get(hostname).then(cert => {
     x509 = new rs.X509();
     x509.readCertPEM(cert.pemEncoded);
-    return x509
-      .getExtCertificatePolicies()
-      .some(isOrganizationPolicy);
+    return x509.getExtCertificatePolicies().some(isOrganizationPolicy);
   });
 }
 
@@ -26,7 +24,7 @@ function isOrganization(hostname) {
  * @return {Boolean}
  */
 function isOrganizationPolicy(policy) {
-  return policy.id === "2.23.140.1.2.2" || policy.id === "2.23.140.1.1"
+  return policy.id === "2.23.140.1.2.2" || policy.id === "2.23.140.1.1";
 }
 
 /**
@@ -39,9 +37,8 @@ function getLndPubkey(hostname) {
   return new Promise((resolve, reject) => {
     dnsPromises
       .resolve(hostname, "TXT")
-      .then(result => {
-        let dnsRecords = result.flat()
-        let pubkey = dnsRecords.find(isValidPubkey);
+      .then(dnsRecords => {
+        let pubkey = dnsRecords.flat().find(isValidPubkey);
         return pubkey
           ? resolve(pubkey.substr(11, 66))
           : reject(new Error("No lnd-pubkey found"));
@@ -63,4 +60,3 @@ function isValidPubkey(dnsRecord) {
 }
 
 module.exports = { getLndPubkey, isOrganization };
-
