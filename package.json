@@ -1,5 +1,11 @@
 {
   "name": "lightning-sprinkle-user-service",
+  "author": "Daan Middendorp",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:lightning-sprinkle/lightning-sprinkle-user-service-electron.git"
+  },
   "main": "src/main.js",
   "scripts": {
     "dev": "electron .",
