@@ -1,46 +1,56 @@
-
-const assert = require('assert');
+const assert = require("assert");
 const sinon = require("sinon");
 const hostname = require("../../src/lib/hostname");
 const sslCertificate = require("get-ssl-certificate");
 const fs = require("fs").promises;
 const dns = require("dns").promises;
 
-describe('hostname', () => {
-  describe('isOrganization', () => {
+describe("hostname", () => {
+  describe("isOrganization", () => {
     afterEach(() => {
       sslCertificate.get.restore();
-    })
-    it('should return false if DV certificate', async () => {
-      let dvCert = await fs.readFile("test/data/dv-cert.pem")
-      sinon.stub(sslCertificate, "get").resolves({
-        pemEncoded: dvCert.toString()
-      });
-      assert.equal(await hostname.isOrganization("domain-with-dv-cert.com"), false);
     });
 
-    it('should return true if OV certificate', async () => {
-      let dvCert = await fs.readFile("test/data/ov-cert.pem")
+    it("should return false if DV certificate", async () => {
+      let dvCert = await fs.readFile("test/data/dv-cert.pem");
       sinon.stub(sslCertificate, "get").resolves({
         pemEncoded: dvCert.toString()
       });
-      assert.equal(await hostname.isOrganization("domain-with-ov-cert.com"), true);
+      assert.equal(
+        await hostname.isOrganization("domain-with-dv-cert.com"),
+        false
+      );
     });
 
-    it('should return true if EV certificate', async () => {
-      let dvCert = await fs.readFile("test/data/ev-cert.pem")
+    it("should return true if OV certificate", async () => {
+      let dvCert = await fs.readFile("test/data/ov-cert.pem");
       sinon.stub(sslCertificate, "get").resolves({
         pemEncoded: dvCert.toString()
       });
-      assert.equal(await hostname.isOrganization("domain-with-ev-cert.com"), true);
+      assert.equal(
+        await hostname.isOrganization("domain-with-ov-cert.com"),
+        true
+      );
+    });
+
+    it("should return true if EV certificate", async () => {
+      let dvCert = await fs.readFile("test/data/ev-cert.pem");
+      sinon.stub(sslCertificate, "get").resolves({
+        pemEncoded: dvCert.toString()
+      });
+      assert.equal(
+        await hostname.isOrganization("domain-with-ev-cert.com"),
+        true
+      );
     });
   });
 
-  describe('getLndPubkey', () => {
+  describe("getLndPubkey", () => {
     afterEach(() => {
       dns.resolve.restore();
-    })
-    it('should return pubkey if TXT record exists', async () => {
+    });
+
+    it("should return pubkey if TXT record exists", async () => {
       sinon
         .stub(dns, "resolve")
         .resolves([
@@ -55,11 +65,16 @@ describe('hostname', () => {
       );
     });
 
-    it('should throw error if TXT record does not exist', async () => {
+    it("should throw error if TXT record does not exist", async () => {
       sinon
         .stub(dns, "resolve")
         .resolves([["docusign=1b0a6754-49b1-4db5-8540-d2c12664b289"]]);
-      assert.rejects(() => hostname.getLndPubkey("example.com"), Error, "Error thrown");
+
+      assert.rejects(
+        hostname.getLndPubkey("example.com"),
+        Error,
+        "Error thrown"
+      );
     });
-  })
+  });
 });
