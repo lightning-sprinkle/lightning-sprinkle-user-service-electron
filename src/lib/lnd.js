@@ -1,6 +1,7 @@
 const fs = require('fs').promises
 const grpc = require('grpc');
-const lnrpc = grpc.load('./src/lib/rpc.proto').lnrpc;
+const protoLoader = require('@grpc/proto-loader');
+const lnrpc = protoLoader.loadSync('./src/lib/rpc.proto').lnrpc;
 process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 
 /**
