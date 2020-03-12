@@ -1,5 +1,6 @@
-// const test = require("ava");
-// const lnd = require("../../src/lib/lnd")
+const assert = require("assert");
+const sinon = require("sinon");
+const hostname = require("../../src/lib/lnd");
 
 // test.skip("Open macaroon", async t => {
 //   let macaroon = await lnd.readMacaroon("/home/daan/.lnd/data/chain/bitcoin/mainnet/admin.macaroon")

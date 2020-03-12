@@ -3,8 +3,8 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "electron .",
-    "test": "mocha",
-    "test:watch": "mocha test/unit --recursive --watch"
+    "test": "mocha test/unit --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
