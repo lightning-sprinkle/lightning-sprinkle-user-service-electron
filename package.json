@@ -3,7 +3,8 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "electron .",
-    "test": "ava"
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
