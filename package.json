@@ -8,6 +8,7 @@
   "dependencies": {
     "electron": "^8.1.1",
     "get-ssl-certificate": "^2.3.3",
+    "grpc": "^1.24.2",
     "i": "^0.3.6",
     "jsrsasign": "^8.0.12",
     "koa": "^2.11.0",

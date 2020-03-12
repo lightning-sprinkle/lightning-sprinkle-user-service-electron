@@ -1,7 +1,7 @@
 "use strict";
 
 const { app, Tray, Menu, BrowserWindow } = require("electron");
-const api = require('./api');
+const api = require('./routes');
 
 let top = {}; // prevent gc to keep windows
 
