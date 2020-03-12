@@ -2,30 +2,24 @@
 
 const { app, Tray, Menu, BrowserWindow } = require("electron");
 const api = require("./routes");
+const lndChildProcess = require("./lnd-child-process");
 
-let top = {}; // prevent gc to keep windows
+
+const Logger = {
+  info: msg => {
+    console.log(msg);
+  },
+  error: msg => {
+    console.error(msg);
+  },
+};
+
+lndChildProcess.startLndProcess("/home/daan/.config/lightning-app/lnd", Logger)
+
+let top = {};
 
 app.once("ready", ev => {
   api.init();
-
-  //   top.win = new BrowserWindow({
-  //     width: 800,
-  //     height: 600,
-  //     center: true,
-  //     minimizable: false,
-  //     show: false,
-  //     webPreferences: {
-  //       nodeIntegration: false,
-  //       webSecurity: true,
-  //       sandbox: true
-  //     }
-  //   });
-  //   top.win.loadURL("https://google.com/");
-  //   top.win.on("close", ev => {
-  //     ev.sender.hide();
-  //     ev.preventDefault();
-  //   });
-
   top.tray = new Tray("icon.png");
   const menu = Menu.buildFromTemplate([{ role: "quit" }]);
   top.tray.setToolTip("hello electrol");
