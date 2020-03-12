@@ -1,10 +1,16 @@
-const Koa = require('koa');
+const Koa = require("koa");
+const Router = require("koa-router");
 const app = new Koa();
+const router = new Router();
 
 module.exports.init = async function() {
-  app.use(async ctx => {
-    ctx.body = 'Hello World';
+  router.get("/deposit", (ctx, next) => {
+    ctx.body = "deposit";
+    next();
   });
-  
-  app.listen(1337);
-}
+
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
+    .listen(28373);
+};

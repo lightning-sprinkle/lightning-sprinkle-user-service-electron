@@ -16,8 +16,26 @@ const Logger = {
 // lndChildProcess.startLndProcess("/home/daan/lndsettings", Logger)
 
 let top = {};
-
+api.init()
 app.once("ready", ev => {
+  top.win = new BrowserWindow({
+    width: 400,
+    height: 400,
+    center: true,
+    minimizable: false,
+    show: false,
+    webPreferences: {
+      nodeIntegration: false,
+      webSecurity: true,
+      sandbox: true
+    }
+  });
+  top.win.loadURL("http://localhost:28373/deposit");
+  top.win.setMenu(null)
+  top.win.on("close", ev => {
+    ev.sender.hide();
+    ev.preventDefault();
+  });
   top.tray = new Tray("icon.png");
   const menu = Menu.buildFromTemplate([
     {
@@ -30,9 +48,9 @@ app.once("ready", ev => {
     },
     { type: "separator" },
     {
-      label: "Manage",
-      click: function() {
-        console.log("Clicked on settings");
+      label: "Deposit",
+      click: (item, window, event) => {
+        top.win.show();
       }
     },
     {
