@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "electron .",
     "test": "ava",
-    "test:watch": "ava --watch"
+    "test:watch": "ava --watch --verbose"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
