@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const grpc = require('grpc');
-const lnrpc = grpc.load('/home/daan/Workspace/lightning-sprinkle-user-service-electron/src/lib/rpc.proto').lnrpc;
+const lnrpc = grpc.load('./src/lib/rpc.proto').lnrpc;
 process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 
 /**
