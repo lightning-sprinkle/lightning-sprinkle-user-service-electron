@@ -1,6 +1,6 @@
 const test = require("ava");
 const sinon = require("sinon")
-const hostname = require("./hostname");
+const hostname = require("../../src/lib/hostname");
 const dns = require("dns").promises;
 
 test("isOrganization valid DV cert", async t => {
