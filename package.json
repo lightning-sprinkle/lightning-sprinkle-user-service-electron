@@ -3,8 +3,8 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "electron .",
-    "test": "ava",
-    "test:watch": "ava --watch --verbose"
+    "test": "mocha",
+    "test:watch": "mocha test/unit --recursive --watch"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
@@ -14,10 +14,9 @@
     "i": "^0.3.6",
     "jsrsasign": "^8.0.12",
     "koa": "^2.11.0",
+    "mocha": "^7.1.0",
     "npm": "^6.14.2",
     "sinon": "^9.0.1"
   },
-  "devDependencies": {
-    "ava": "^3.5.0"
-  }
+  "devDependencies": {}
 }
